@@ -88,7 +88,7 @@ namespace InternationalRailwayTickets.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("StartTime");
+                    b.Property<TimeSpan>("StartTime");
 
                     b.HasKey("Id");
 

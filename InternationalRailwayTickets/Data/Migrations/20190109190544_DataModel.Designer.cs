@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InternationalRailwayTickets.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190109182537_DataModel")]
+    [Migration("20190109190544_DataModel")]
     partial class DataModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,7 +90,7 @@ namespace InternationalRailwayTickets.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("StartTime");
+                    b.Property<TimeSpan>("StartTime");
 
                     b.HasKey("Id");
 

@@ -11,7 +11,7 @@ namespace InternationalRailwayTickets.Data
         public Guid Id { get; set; }
 
         [Required]
-        public DateTime StartTime { get; set; }
+        public TimeSpan StartTime { get; set; }
 
         public ICollection<RoutePoint> Points { get; } = new List<RoutePoint>();
 

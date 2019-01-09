@@ -36,7 +36,7 @@ namespace InternationalRailwayTickets.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    StartTime = table.Column<DateTime>(nullable: false)
+                    StartTime = table.Column<TimeSpan>(nullable: false)
                 },
                 constraints: table =>
                 {
