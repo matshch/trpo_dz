@@ -83,27 +83,6 @@ namespace InternationalRailwayTickets.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlaceInstances",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Number = table.Column<long>(nullable: false),
-                    Level = table.Column<long>(nullable: false),
-                    Floor = table.Column<long>(nullable: false),
-                    CarId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlaceInstances", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PlaceInstances_CarInstances_CarId",
-                        column: x => x.CarId,
-                        principalTable: "CarInstances",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Places",
                 columns: table => new
                 {
@@ -215,7 +194,6 @@ namespace InternationalRailwayTickets.Data.Migrations
                     DocumentNumber = table.Column<string>(nullable: false),
                     Paid = table.Column<bool>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
-                    PlaceInstanceId = table.Column<Guid>(nullable: true),
                     FromPointId = table.Column<Guid>(nullable: true),
                     ToPointId = table.Column<Guid>(nullable: true)
                 },
@@ -226,12 +204,6 @@ namespace InternationalRailwayTickets.Data.Migrations
                         name: "FK_Tickets_RoutePoints_FromPointId",
                         column: x => x.FromPointId,
                         principalTable: "RoutePoints",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Tickets_PlaceInstances_PlaceInstanceId",
-                        column: x => x.PlaceInstanceId,
-                        principalTable: "PlaceInstances",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -328,10 +300,44 @@ namespace InternationalRailwayTickets.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PlaceInstances",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Number = table.Column<long>(nullable: false),
+                    Level = table.Column<long>(nullable: false),
+                    Floor = table.Column<long>(nullable: false),
+                    CarId = table.Column<Guid>(nullable: false),
+                    TicketId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlaceInstances", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlaceInstances_CarInstances_CarId",
+                        column: x => x.CarId,
+                        principalTable: "CarInstances",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlaceInstances_Tickets_TicketId",
+                        column: x => x.TicketId,
+                        principalTable: "Tickets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_PlaceInstances_CarId",
                 table: "PlaceInstances",
                 column: "CarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlaceInstances_TicketId",
+                table: "PlaceInstances",
+                column: "TicketId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Places_CarId",
@@ -352,11 +358,6 @@ namespace InternationalRailwayTickets.Data.Migrations
                 name: "IX_Tickets_FromPointId",
                 table: "Tickets",
                 column: "FromPointId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tickets_PlaceInstanceId",
-                table: "Tickets",
-                column: "PlaceInstanceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_ToPointId",
@@ -415,6 +416,12 @@ namespace InternationalRailwayTickets.Data.Migrations
                 column: "RouteId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Trains_Number",
+                table: "Trains",
+                column: "Number",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TrainSchedules_RouteId",
                 table: "TrainSchedules",
                 column: "RouteId");
@@ -433,10 +440,10 @@ namespace InternationalRailwayTickets.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Places");
+                name: "PlaceInstances");
 
             migrationBuilder.DropTable(
-                name: "Tickets");
+                name: "Places");
 
             migrationBuilder.DropTable(
                 name: "TrainCarInstances");
@@ -445,7 +452,10 @@ namespace InternationalRailwayTickets.Data.Migrations
                 name: "TrainCars");
 
             migrationBuilder.DropTable(
-                name: "PlaceInstances");
+                name: "Tickets");
+
+            migrationBuilder.DropTable(
+                name: "CarInstances");
 
             migrationBuilder.DropTable(
                 name: "TrainInstances");
@@ -454,25 +464,22 @@ namespace InternationalRailwayTickets.Data.Migrations
                 name: "Cars");
 
             migrationBuilder.DropTable(
-                name: "RoutePoints");
-
-            migrationBuilder.DropTable(
                 name: "TrainSchedules");
 
             migrationBuilder.DropTable(
-                name: "CarInstances");
-
-            migrationBuilder.DropTable(
-                name: "Stations");
-
-            migrationBuilder.DropTable(
-                name: "Routes");
+                name: "RoutePoints");
 
             migrationBuilder.DropTable(
                 name: "Schedule");
 
             migrationBuilder.DropTable(
                 name: "Trains");
+
+            migrationBuilder.DropTable(
+                name: "Routes");
+
+            migrationBuilder.DropTable(
+                name: "Stations");
         }
     }
 }

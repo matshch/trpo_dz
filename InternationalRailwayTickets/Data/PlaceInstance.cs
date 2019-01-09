@@ -15,5 +15,9 @@ namespace InternationalRailwayTickets.Data
 
         [Required]
         public CarInstance Car { get; set; }
+
+        public Ticket Ticket { get; set; }
+        // Required to setup dependent side
+        public Guid TicketId { get; set; }
     }
 }

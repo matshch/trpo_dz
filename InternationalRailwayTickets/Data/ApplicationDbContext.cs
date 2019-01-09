@@ -28,5 +28,11 @@ namespace InternationalRailwayTickets.Data
         public DbSet<DailySchedule> DailySchedules { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Train>().HasIndex(e => e.Number).IsUnique();
+        }
     }
 }
