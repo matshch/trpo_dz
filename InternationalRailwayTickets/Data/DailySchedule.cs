@@ -30,7 +30,7 @@ namespace InternationalRailwayTickets.Data
                 }
 
                 var maybeIncluded = included.Where(e => e < date).ToList();
-                if (maybeIncluded.Count > 0)
+                if (maybeIncluded.Any())
                 {
                     maybeIncluded.Sort();
                     foreach (var maybe in maybeIncluded)
