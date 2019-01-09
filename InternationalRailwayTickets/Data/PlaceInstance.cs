@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,9 +16,6 @@ namespace InternationalRailwayTickets.Data
 
         [Required]
         public CarInstance Car { get; set; }
-
-        public Ticket Ticket { get; set; }
-        // Required to setup dependent side
-        public Guid TicketId { get; set; }
+        public ICollection<Ticket> Ticket { get; } = new List<Ticket>();
     }
 }

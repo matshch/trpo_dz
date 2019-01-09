@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InternationalRailwayTickets.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190109203244_DataModel")]
+    [Migration("20190109204708_DataModel")]
     partial class DataModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,14 +78,9 @@ namespace InternationalRailwayTickets.Data.Migrations
 
                     b.Property<long>("Number");
 
-                    b.Property<Guid>("TicketId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
-
-                    b.HasIndex("TicketId")
-                        .IsUnique();
 
                     b.ToTable("PlaceInstances");
                 });
@@ -170,6 +165,8 @@ namespace InternationalRailwayTickets.Data.Migrations
                     b.Property<string>("PassengerName")
                         .IsRequired();
 
+                    b.Property<Guid?>("PlaceInstanceId");
+
                     b.Property<Guid?>("ToPointId");
 
                     b.Property<string>("UserId")
@@ -178,6 +175,8 @@ namespace InternationalRailwayTickets.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FromPointId");
+
+                    b.HasIndex("PlaceInstanceId");
 
                     b.HasIndex("ToPointId");
 
@@ -496,11 +495,6 @@ namespace InternationalRailwayTickets.Data.Migrations
                         .WithMany("Places")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("InternationalRailwayTickets.Data.Ticket", "Ticket")
-                        .WithOne("PlaceInstance")
-                        .HasForeignKey("InternationalRailwayTickets.Data.PlaceInstance", "TicketId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("InternationalRailwayTickets.Data.RoutePoint", b =>
@@ -520,6 +514,10 @@ namespace InternationalRailwayTickets.Data.Migrations
                     b.HasOne("InternationalRailwayTickets.Data.RoutePoint", "FromPoint")
                         .WithMany()
                         .HasForeignKey("FromPointId");
+
+                    b.HasOne("InternationalRailwayTickets.Data.PlaceInstance", "PlaceInstance")
+                        .WithMany("Ticket")
+                        .HasForeignKey("PlaceInstanceId");
 
                     b.HasOne("InternationalRailwayTickets.Data.RoutePoint", "ToPoint")
                         .WithMany()
