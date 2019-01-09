@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InternationalRailwayTickets.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190109204708_DataModel")]
+    [Migration("20190109213744_DataModel")]
     partial class DataModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,7 +125,11 @@ namespace InternationalRailwayTickets.Data.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
+                    b.Property<string>("ExcludedDatesJson");
+
                     b.Property<DateTime>("FromDate");
+
+                    b.Property<string>("IncludedDatesJson");
 
                     b.HasKey("Id");
 

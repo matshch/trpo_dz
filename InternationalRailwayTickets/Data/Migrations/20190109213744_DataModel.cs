@@ -49,6 +49,8 @@ namespace InternationalRailwayTickets.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     FromDate = table.Column<DateTime>(nullable: false),
+                    IncludedDatesJson = table.Column<string>(nullable: true),
+                    ExcludedDatesJson = table.Column<string>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
                     EveryNDay = table.Column<long>(nullable: true)
                 },

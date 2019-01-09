@@ -123,7 +123,11 @@ namespace InternationalRailwayTickets.Data.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
+                    b.Property<string>("ExcludedDatesJson");
+
                     b.Property<DateTime>("FromDate");
+
+                    b.Property<string>("IncludedDatesJson");
 
                     b.HasKey("Id");
 
