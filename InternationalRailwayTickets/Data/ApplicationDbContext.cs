@@ -26,6 +26,7 @@ namespace InternationalRailwayTickets.Data
 
         public DbSet<TrainSchedule> TrainSchedules { get; set; }
         public DbSet<DailySchedule> DailySchedules { get; set; }
+        public DbSet<WeeklySchedule> WeeklySchedules { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
