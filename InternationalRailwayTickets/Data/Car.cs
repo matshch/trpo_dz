@@ -15,5 +15,19 @@ namespace InternationalRailwayTickets.Data
 
         public ICollection<TrainCar> TrainCar { get; } = new List<TrainCar>();
         public ICollection<Place> Places { get; } = new List<Place>();
+
+        public CarInstance CreateInstance()
+        {
+            var instance = new CarInstance {
+                ServiceClass = ServiceClass
+            };
+
+            foreach (var place in Places)
+            {
+                instance.Places.Add(place.CreateInstance());
+            }
+
+            return instance;
+        }
     }
 }

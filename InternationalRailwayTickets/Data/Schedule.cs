@@ -26,33 +26,35 @@ namespace InternationalRailwayTickets.Data
 
         public string IncludedDatesJson
         {
-            get
-            {
-                return IncludedDates == null ? "[]" : JsonConvert.SerializeObject(IncludedDates);
-            }
+            get => IncludedDates == null ? "[]" : JsonConvert.SerializeObject(IncludedDates);
 
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
+                {
                     IncludedDates.Clear();
+                }
                 else
+                {
                     IncludedDates = JsonConvert.DeserializeObject<ICollection<DateTime>>(value);
+                }
             }
         }
 
         public string ExcludedDatesJson
         {
-            get
-            {
-                return ExcludedDates == null ? "[]" : JsonConvert.SerializeObject(ExcludedDates);
-            }
+            get => ExcludedDates == null ? "[]" : JsonConvert.SerializeObject(ExcludedDates);
 
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
+                {
                     ExcludedDates.Clear();
+                }
                 else
+                {
                     ExcludedDates = JsonConvert.DeserializeObject<ICollection<DateTime>>(value);
+                }
             }
         }
 

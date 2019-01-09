@@ -15,5 +15,15 @@ namespace InternationalRailwayTickets.Data
 
         [Required]
         public Car Car { get; set; }
+
+        internal PlaceInstance CreateInstance()
+        {
+            return new PlaceInstance
+            {
+                Number = Number,
+                Level = Level,
+                Floor = Floor
+            };
+        }
     }
 }

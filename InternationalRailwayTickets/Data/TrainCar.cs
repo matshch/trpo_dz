@@ -17,5 +17,16 @@ namespace InternationalRailwayTickets.Data
         public Car Car { get; set; }
         public RoutePoint FromPoint { get; set; }
         public RoutePoint ToPoint { get; set; }
+
+        public TrainCarInstance CreateInstance()
+        {
+            return new TrainCarInstance
+            {
+                Number = Number,
+                Car = Car.CreateInstance(),
+                FromPoint = FromPoint,
+                ToPoint = ToPoint
+            };
+        }
     }
 }
