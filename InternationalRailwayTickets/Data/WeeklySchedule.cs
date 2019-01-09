@@ -8,7 +8,7 @@ namespace InternationalRailwayTickets.Data
 {
     public class WeeklySchedule : Schedule
     {
-        public WeeklySchedule(DateTime fromDate, List<DayOfWeek> daysOfWeek) : base(fromDate)
+        public WeeklySchedule(DateTime fromDate, ICollection<DayOfWeek> daysOfWeek) : base(fromDate)
         {
             if (!daysOfWeek.Any())
             {
