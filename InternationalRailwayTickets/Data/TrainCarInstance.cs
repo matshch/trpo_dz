@@ -17,9 +17,7 @@ namespace InternationalRailwayTickets.Data
         public CarInstance Car { get; set; }
         // Required to setup dependent side
         public Guid CarId { get; set; }
-        [Required]
         public RoutePoint FromPoint { get; set; }
-        [Required]
         public RoutePoint ToPoint { get; set; }
     }
 }

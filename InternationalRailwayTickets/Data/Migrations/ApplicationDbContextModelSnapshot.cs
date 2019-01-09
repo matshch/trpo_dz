@@ -156,16 +156,16 @@ namespace InternationalRailwayTickets.Data.Migrations
                     b.Property<string>("DocumentType")
                         .IsRequired();
 
-                    b.Property<Guid>("FromPointId");
+                    b.Property<Guid?>("FromPointId");
 
                     b.Property<bool>("Paid");
 
                     b.Property<string>("PassengerName")
                         .IsRequired();
 
-                    b.Property<Guid>("PlaceInstanceId");
+                    b.Property<Guid?>("PlaceInstanceId");
 
-                    b.Property<Guid>("ToPointId");
+                    b.Property<Guid?>("ToPointId");
 
                     b.Property<string>("UserId")
                         .IsRequired();
@@ -205,11 +205,11 @@ namespace InternationalRailwayTickets.Data.Migrations
 
                     b.Property<Guid>("CarId");
 
-                    b.Property<Guid>("FromPointId");
+                    b.Property<Guid?>("FromPointId");
 
                     b.Property<long>("Number");
 
-                    b.Property<Guid>("ToPointId");
+                    b.Property<Guid?>("ToPointId");
 
                     b.Property<Guid>("TrainScheduleId");
 
@@ -233,11 +233,11 @@ namespace InternationalRailwayTickets.Data.Migrations
 
                     b.Property<Guid>("CarId");
 
-                    b.Property<Guid>("FromPointId");
+                    b.Property<Guid?>("FromPointId");
 
                     b.Property<long>("Number");
 
-                    b.Property<Guid>("ToPointId");
+                    b.Property<Guid?>("ToPointId");
 
                     b.Property<Guid>("TrainId");
 
@@ -508,18 +508,15 @@ namespace InternationalRailwayTickets.Data.Migrations
                 {
                     b.HasOne("InternationalRailwayTickets.Data.RoutePoint", "FromPoint")
                         .WithMany()
-                        .HasForeignKey("FromPointId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FromPointId");
 
                     b.HasOne("InternationalRailwayTickets.Data.PlaceInstance", "PlaceInstance")
                         .WithMany()
-                        .HasForeignKey("PlaceInstanceId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PlaceInstanceId");
 
                     b.HasOne("InternationalRailwayTickets.Data.RoutePoint", "ToPoint")
                         .WithMany()
-                        .HasForeignKey("ToPointId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ToPointId");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
@@ -536,13 +533,11 @@ namespace InternationalRailwayTickets.Data.Migrations
 
                     b.HasOne("InternationalRailwayTickets.Data.RoutePoint", "FromPoint")
                         .WithMany()
-                        .HasForeignKey("FromPointId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FromPointId");
 
                     b.HasOne("InternationalRailwayTickets.Data.RoutePoint", "ToPoint")
                         .WithMany()
-                        .HasForeignKey("ToPointId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ToPointId");
 
                     b.HasOne("InternationalRailwayTickets.Data.TrainSchedule", "TrainSchedule")
                         .WithMany("TrainCars")
@@ -559,13 +554,11 @@ namespace InternationalRailwayTickets.Data.Migrations
 
                     b.HasOne("InternationalRailwayTickets.Data.RoutePoint", "FromPoint")
                         .WithMany()
-                        .HasForeignKey("FromPointId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FromPointId");
 
                     b.HasOne("InternationalRailwayTickets.Data.RoutePoint", "ToPoint")
                         .WithMany()
-                        .HasForeignKey("ToPointId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ToPointId");
 
                     b.HasOne("InternationalRailwayTickets.Data.TrainInstance", "Train")
                         .WithMany("TrainCars")

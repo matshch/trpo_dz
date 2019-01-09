@@ -15,9 +15,7 @@ namespace InternationalRailwayTickets.Data
         public TrainSchedule TrainSchedule { get; set; }
         [Required]
         public Car Car { get; set; }
-        [Required]
         public RoutePoint FromPoint { get; set; }
-        [Required]
         public RoutePoint ToPoint { get; set; }
     }
 }

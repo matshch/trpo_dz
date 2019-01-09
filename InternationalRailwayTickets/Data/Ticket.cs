@@ -20,11 +20,8 @@ namespace InternationalRailwayTickets.Data
 
         [Required]
         public IdentityUser User { get; set; }
-        [Required]
         public PlaceInstance PlaceInstance { get; set; }
-        [Required]
         public RoutePoint FromPoint { get; set; }
-        [Required]
         public RoutePoint ToPoint { get; set; }
     }
 }

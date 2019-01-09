@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InternationalRailwayTickets.Data.Migrations
 {
-    public partial class ApplicationModel : Migration
+    public partial class DataModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -215,9 +215,9 @@ namespace InternationalRailwayTickets.Data.Migrations
                     DocumentNumber = table.Column<string>(nullable: false),
                     Paid = table.Column<bool>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
-                    PlaceInstanceId = table.Column<Guid>(nullable: false),
-                    FromPointId = table.Column<Guid>(nullable: false),
-                    ToPointId = table.Column<Guid>(nullable: false)
+                    PlaceInstanceId = table.Column<Guid>(nullable: true),
+                    FromPointId = table.Column<Guid>(nullable: true),
+                    ToPointId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -227,19 +227,19 @@ namespace InternationalRailwayTickets.Data.Migrations
                         column: x => x.FromPointId,
                         principalTable: "RoutePoints",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Tickets_PlaceInstances_PlaceInstanceId",
                         column: x => x.PlaceInstanceId,
                         principalTable: "PlaceInstances",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Tickets_RoutePoints_ToPointId",
                         column: x => x.ToPointId,
                         principalTable: "RoutePoints",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Tickets_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -256,8 +256,8 @@ namespace InternationalRailwayTickets.Data.Migrations
                     Number = table.Column<long>(nullable: false),
                     TrainId = table.Column<Guid>(nullable: false),
                     CarId = table.Column<Guid>(nullable: false),
-                    FromPointId = table.Column<Guid>(nullable: false),
-                    ToPointId = table.Column<Guid>(nullable: false)
+                    FromPointId = table.Column<Guid>(nullable: true),
+                    ToPointId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -273,13 +273,13 @@ namespace InternationalRailwayTickets.Data.Migrations
                         column: x => x.FromPointId,
                         principalTable: "RoutePoints",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TrainCarInstances_RoutePoints_ToPointId",
                         column: x => x.ToPointId,
                         principalTable: "RoutePoints",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TrainCarInstances_TrainInstances_TrainId",
                         column: x => x.TrainId,
@@ -296,8 +296,8 @@ namespace InternationalRailwayTickets.Data.Migrations
                     Number = table.Column<long>(nullable: false),
                     TrainScheduleId = table.Column<Guid>(nullable: false),
                     CarId = table.Column<Guid>(nullable: false),
-                    FromPointId = table.Column<Guid>(nullable: false),
-                    ToPointId = table.Column<Guid>(nullable: false)
+                    FromPointId = table.Column<Guid>(nullable: true),
+                    ToPointId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -313,13 +313,13 @@ namespace InternationalRailwayTickets.Data.Migrations
                         column: x => x.FromPointId,
                         principalTable: "RoutePoints",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TrainCars_RoutePoints_ToPointId",
                         column: x => x.ToPointId,
                         principalTable: "RoutePoints",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TrainCars_TrainSchedules_TrainScheduleId",
                         column: x => x.TrainScheduleId,
