@@ -1,5 +1,3 @@
-using System;
-
 namespace InternationalRailwayTickets.Models
 {
     public class ErrorViewModel
