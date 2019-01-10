@@ -12,8 +12,8 @@ namespace InternationalRailwayTickets.Controllers
     [Authorize]
     public class MyTicketsController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public MyTicketsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
