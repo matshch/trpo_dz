@@ -6,23 +6,19 @@
 <h1>Купить билет</h1>
 <hr />
 <h2>@ViewBag.FromName — @ViewBag.ToName @ViewBag.FromTime.ToLongDateString()</h2>
-<h3>@ViewBag.Train.Number@(string.IsNullOrEmpty(ViewBag.Train.Name) ? "" : " «" + ViewBag.Train.Name + "»")</h3>
+<h3>@ViewBag.Train.GetFullName()</h3>
 <p>Отправление: @ViewBag.FromTime</p>
 <p>Прибытие: @ViewBag.ToTime</p>
 <h4>Вагон №@ViewBag.Car.TrainCar.Number (класс @ViewBag.Car.ServiceClass)</h4>
 <div class="row">
     @foreach (var place in Model)
     {
-        var vacant = true;
-        if (place.Ticket.Any(e => e.ToPoint.FromStartTime > ViewBag.FromPoint.FromStartTime && e.FromPoint.FromStartTime < ViewBag.ToPoint.FromStartTime))
-        {
-            vacant = false;
-        }
+        var vacant = place.IsVacant(ViewBag.FromPoint, ViewBag.ToPoint);
         <div class="col-sm-3">
             <div class="card mb-4 @(vacant ? "" : "bg-light")">
                 <div class="card-body">
                     <h5 class="card-title">Место №@place.Number</h5>
-                    <h6 class="card-subtitle mb-2">@place.Floor этаж, @(place.Level == 0 ? "сидячее" : place.Level + " полка")</h6>
+                    <h6 class="card-subtitle mb-2">@place.GetDescription()</h6>
                     @if (vacant)
                     {
                         <a asp-action="BuyTicket"

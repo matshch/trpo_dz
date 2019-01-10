@@ -35,7 +35,7 @@ namespace InternationalRailwayTickets.Data
                 throw new ArgumentOutOfRangeException("date", "No schedule for this date");
             }
 
-            var instance =  new TrainInstance
+            var instance = new TrainInstance
             {
                 Number = Number,
                 Name = Name,
@@ -49,6 +49,18 @@ namespace InternationalRailwayTickets.Data
             }
 
             return instance;
+        }
+
+        public string GetFullName()
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                return Number;
+            }
+            else
+            {
+                return Number + " «" + Name + "»";
+            }
         }
     }
 }

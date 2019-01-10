@@ -6,7 +6,7 @@
 <h1>Купить билет</h1>
 <hr />
 <h2>@ViewBag.FromName — @ViewBag.ToName @ViewBag.FromTime.ToLongDateString()</h2>
-<h3>@ViewBag.Train.Number@(string.IsNullOrEmpty(ViewBag.Train.Name) ? "" : " «" + ViewBag.Train.Name + "»")</h3>
+<h3>@ViewBag.Train.GetFullName()</h3>
 <p>Отправление: @ViewBag.FromTime</p>
 <p>Прибытие: @ViewBag.ToTime</p>
 <div class="row">

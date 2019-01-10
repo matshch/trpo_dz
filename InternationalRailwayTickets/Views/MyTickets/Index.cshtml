@@ -10,11 +10,12 @@
 {
     var first = group.First();
     var train = first.PlaceInstance.Car.TrainCar.Train;
-    <h2>@train.Number@(string.IsNullOrEmpty(train.Name) ? "" : " «" + train.Name + "»") @train.Route.Points.OrderBy(e => e.FromStartTime).First().Station.Name — @train.Route.Points.OrderByDescending(e => e.FromStartTime).First().Station.Name</h2>
-    var fromTime = train.StartDate.Add(train.Route.StartTime).Add(first.FromPoint.FromStartTime);
-    var toTime = train.StartDate.Add(train.Route.StartTime).Add(first.ToPoint.FromStartTime);
-    <p>Отправление: из @first.FromPoint.Station.Name @fromTime</p>
-    <p>Прибытие: в @first.ToPoint.Station.Name @toTime</p>
+    var fromTime = train.GetTimeAtPoint(first.FromPoint);
+    var toTime = train.GetTimeAtPoint(first.ToPoint);
+    <h2>@first.FromPoint.Station.Name — @first.ToPoint.Station.Name @fromTime.ToLongDateString()</h2>
+    <p>Поезд @train.GetFullName() @train.GetRouteDescription()</p>
+    <p>Отправление: @fromTime</p>
+    <p>Прибытие: @toTime</p>
     <p>Время в пути @(toTime - fromTime)</p>
     <table class="table">
         <thead>
@@ -44,19 +45,19 @@
             {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => ticket.PlaceInstance.Car.TrainCar.Number) (@Html.DisplayFor(modelItem => ticket.PlaceInstance.Car.ServiceClass))
+                    @ticket.PlaceInstance.Car.TrainCar.Number (@ticket.PlaceInstance.Car.ServiceClass)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => ticket.PlaceInstance.Number) (@Html.DisplayFor(modelItem => ticket.PlaceInstance.Floor) этаж, @(ticket.PlaceInstance.Level == 0 ? "сидячее" : ticket.PlaceInstance.Level + " полка"))
+                    @ticket.PlaceInstance.Number (@ticket.PlaceInstance.GetDescription())
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => ticket.PassengerName)
+                    @ticket.PassengerName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => ticket.DocumentType)
+                    @ticket.DocumentType
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => ticket.DocumentNumber)
+                    @ticket.DocumentNumber
                 </td>
                 <td>
                     @if (ticket.Paid)

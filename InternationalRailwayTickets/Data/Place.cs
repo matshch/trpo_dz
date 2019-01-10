@@ -16,7 +16,7 @@ namespace InternationalRailwayTickets.Data
         [Required]
         public Car Car { get; set; }
 
-        internal PlaceInstance CreateInstance()
+        public PlaceInstance CreateInstance()
         {
             return new PlaceInstance
             {
@@ -24,6 +24,11 @@ namespace InternationalRailwayTickets.Data
                 Level = Level,
                 Floor = Floor
             };
+        }
+
+        public string GetDescription()
+        {
+            return Floor + " этаж, " + (Level == 0 ? "сидячее" : Level + " полка");
         }
     }
 }

@@ -6,11 +6,11 @@
 <h1>Купить билет</h1>
 <hr />
 <h2>@ViewBag.FromName — @ViewBag.ToName @ViewBag.FromTime.ToLongDateString()</h2>
-<h3>@ViewBag.Train.Number@(string.IsNullOrEmpty(ViewBag.Train.Name) ? "" : " «" + ViewBag.Train.Name + "»")</h3>
+<h3>@ViewBag.Train.GetFullName()</h3>
 <p>Отправление: @ViewBag.FromTime</p>
 <p>Прибытие: @ViewBag.ToTime</p>
 <h4>Вагон №@ViewBag.Place.Car.TrainCar.Number (класс @ViewBag.Place.Car.ServiceClass)</h4>
-<h4>Место №@ViewBag.Place.Number (@ViewBag.Place.Floor этаж, @(ViewBag.Place.Level == 0 ? "сидячее" : ViewBag.Place.Level + " полка"))</h4>
+<h4>Место №@ViewBag.Place.Number (@ViewBag.Place.GetDescription())</h4>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="BuyTicket" method="post">

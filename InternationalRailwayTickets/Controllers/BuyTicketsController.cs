@@ -38,14 +38,15 @@ namespace InternationalRailwayTickets.Controllers
 
                 var query = from train in _context.TrainInstances
                             where train.Route.Points.Any(e => e.Station.Id == model.FromId) &&
-                                  train.Route.Points.Any(e => e.Station.Id == model.ToId)
+                                  train.Route.Points.Any(e => e.Station.Id == model.ToId) &&
+                                  model.FromDate.AddMonths(-1) <= train.StartDate && train.StartDate <= model.FromDate
                             select train;
                 var trains = await query.Include(e => e.Route).ThenInclude(e => e.Points).ThenInclude(e => e.Station).ToListAsync();
 
                 trains = trains.Where(
                         train => train.Route.Points.First(e => e.Station.Id == model.FromId).FromStartTime <= train.Route.Points.First(e => e.Station.Id == model.ToId).FromStartTime
                     ).Where(train =>
-                        train.StartDate.Add(train.Route.StartTime).Add(train.Route.Points.First(e => e.Station.Id == model.FromId).FromStartTime).Date == model.FromDate.Date
+                        train.GetTimeAtPoint(train.Route.Points.First(e => e.Station.Id == model.FromId)).Date == model.FromDate.Date
                     ).ToList();
 
                 ViewBag.FromId = model.FromId;
@@ -85,8 +86,8 @@ namespace InternationalRailwayTickets.Controllers
                 ViewBag.ToId = toPointId;
                 ViewBag.FromName = fromPoint.Station.Name;
                 ViewBag.ToName = toPoint.Station.Name;
-                ViewBag.FromTime = train.StartDate.Add(train.Route.StartTime).Add(fromPoint.FromStartTime);
-                ViewBag.ToTime = train.StartDate.Add(train.Route.StartTime).Add(toPoint.FromStartTime);
+                ViewBag.FromTime = train.GetTimeAtPoint(fromPoint);
+                ViewBag.ToTime = train.GetTimeAtPoint(toPoint);
 
                 return View(cars);
             }
@@ -105,7 +106,7 @@ namespace InternationalRailwayTickets.Controllers
 
                 var car = await _context.CarInstances
                                         .Include(e => e.TrainCar).ThenInclude(e => e.Train).ThenInclude(e => e.Route).ThenInclude(e => e.Points).ThenInclude(e => e.Station)
-                                        .Include(e => e.Places).ThenInclude(e => e.Ticket).FirstAsync(e => e.Id == carId);
+                                        .Include(e => e.Places).ThenInclude(e => e.Tickets).FirstAsync(e => e.Id == carId);
 
                 var train = car.TrainCar.Train;
                 var fromPoint = train.Route.Points.First(e => e.Id == fromPointId);
@@ -119,8 +120,8 @@ namespace InternationalRailwayTickets.Controllers
                 ViewBag.ToPoint = toPoint;
                 ViewBag.FromName = fromPoint.Station.Name;
                 ViewBag.ToName = toPoint.Station.Name;
-                ViewBag.FromTime = train.StartDate.Add(train.Route.StartTime).Add(fromPoint.FromStartTime);
-                ViewBag.ToTime = train.StartDate.Add(train.Route.StartTime).Add(toPoint.FromStartTime);
+                ViewBag.FromTime = train.GetTimeAtPoint(fromPoint);
+                ViewBag.ToTime = train.GetTimeAtPoint(toPoint);
 
                 return View(car.Places.OrderBy(e => e.Number).ToList());
             }
@@ -151,8 +152,8 @@ namespace InternationalRailwayTickets.Controllers
                 ViewBag.ToId = toPointId;
                 ViewBag.FromName = fromPoint.Station.Name;
                 ViewBag.ToName = toPoint.Station.Name;
-                ViewBag.FromTime = train.StartDate.Add(train.Route.StartTime).Add(fromPoint.FromStartTime);
-                ViewBag.ToTime = train.StartDate.Add(train.Route.StartTime).Add(toPoint.FromStartTime);
+                ViewBag.FromTime = train.GetTimeAtPoint(fromPoint);
+                ViewBag.ToTime = train.GetTimeAtPoint(toPoint);
 
                 return View(new Ticket
                 {

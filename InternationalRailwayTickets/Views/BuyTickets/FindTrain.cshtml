@@ -11,13 +11,13 @@
     {
         var fromPoint = train.Route.Points.First(e => e.Station.Id == ViewBag.FromId);
         var toPoint = train.Route.Points.First(e => e.Station.Id == ViewBag.ToId);
-        var fromTime = train.StartDate.Add(train.Route.StartTime).Add(fromPoint.FromStartTime);
-        var toTime = train.StartDate.Add(train.Route.StartTime).Add(toPoint.FromStartTime);
+        var fromTime = train.GetTimeAtPoint(fromPoint);
+        var toTime = train.GetTimeAtPoint(toPoint);
         <div class="col-sm-4">
             <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">@train.Number@(string.IsNullOrEmpty(train.Name) ? "" : " «" + train.Name + "»")</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">@train.Route.Points.OrderBy(e => e.FromStartTime).First().Station.Name — @train.Route.Points.OrderByDescending(e => e.FromStartTime).First().Station.Name</h6>
+                    <h5 class="card-title">@train.GetFullName()</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@train.GetRouteDescription()</h6>
                     <p class="card-text">Отправление: @fromTime</p>
                     <p class="card-text">Прибытие: @toTime</p>
                     <a asp-action="FindCar"
