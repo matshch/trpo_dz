@@ -1,0 +1,45 @@
+﻿@model Ticket
+@{
+    ViewData["Title"] = "Купить билет";
+}
+
+<h1>Купить билет</h1>
+<hr />
+<h2>@ViewBag.FromName — @ViewBag.ToName @ViewBag.FromTime.ToLongDateString()</h2>
+<h3>@ViewBag.Train.Number@(string.IsNullOrEmpty(ViewBag.Train.Name) ? "" : " «" + ViewBag.Train.Name + "»")</h3>
+<p>Отправление: @ViewBag.FromTime</p>
+<p>Прибытие: @ViewBag.ToTime</p>
+<h4>Вагон №@ViewBag.Place.Car.TrainCar.Number (класс @ViewBag.Place.Car.ServiceClass)</h4>
+<h4>Место №@ViewBag.Place.Number (@ViewBag.Place.Floor этаж, @(ViewBag.Place.Level == 0 ? "сидячее" : ViewBag.Place.Level + " полка"))</h4>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="BuyTicket" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PlaceInstanceId" />
+            <input type="hidden" asp-for="FromPointId" />
+            <input type="hidden" asp-for="ToPointId" />
+            <div class="form-group">
+                <label asp-for="PassengerName" class="control-label">ФИО</label>
+                <input asp-for="PassengerName" class="form-control" />
+                <span asp-validation-for="PassengerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DocumentType" class="control-label">Тип документа</label>
+                <input asp-for="DocumentType" class="form-control" />
+                <span asp-validation-for="DocumentType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DocumentNumber" class="control-label">Номер документа</label>
+                <input asp-for="DocumentNumber" class="form-control" />
+                <span asp-validation-for="DocumentNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Купить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

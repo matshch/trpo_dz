@@ -1,0 +1,29 @@
+﻿@model ICollection<TrainCarInstance>
+@{
+    ViewData["Title"] = "Купить билет";
+}
+
+<h1>Купить билет</h1>
+<hr />
+<h2>@ViewBag.FromName — @ViewBag.ToName @ViewBag.FromTime.ToLongDateString()</h2>
+<h3>@ViewBag.Train.Number@(string.IsNullOrEmpty(ViewBag.Train.Name) ? "" : " «" + ViewBag.Train.Name + "»")</h3>
+<p>Отправление: @ViewBag.FromTime</p>
+<p>Прибытие: @ViewBag.ToTime</p>
+<div class="row">
+    @foreach (var car in Model)
+    {
+        <div class="col-sm-3">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Вагон №@car.Number</h5>
+                    <h6 class="card-subtitle mb-2">Класс @car.Car.ServiceClass</h6>
+                    <a asp-action="FindPlace"
+                       asp-route-fromPointId="@ViewBag.FromId"
+                       asp-route-toPointId="@ViewBag.ToId"
+                       asp-route-carId="@car.Car.Id"
+                       class="btn btn-primary">Купить</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,34 @@
+﻿@model FindTrainModel
+@{
+    ViewData["Title"] = "Купить билет";
+}
+
+<h1>Купить билет</h1>
+<hr />
+<form asp-action="FindTrain" method="post">
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label asp-for="FromId">Откуда</label>
+            <select asp-for="FromId" class="custom-select">
+                @foreach (var station in ViewBag.Stations)
+                {
+                    <option value="@station.Id">@station.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="ToId">Куда</label>
+            <select asp-for="ToId" class="custom-select">
+                @foreach (var station in ViewBag.Stations)
+                {
+                    <option value="@station.Id">@station.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="FromDate">Когда</label>
+            <input asp-for="FromDate" type="date" class="form-control">
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Найти</button>
+</form>

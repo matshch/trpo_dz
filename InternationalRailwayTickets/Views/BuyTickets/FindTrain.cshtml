@@ -1,0 +1,32 @@
+﻿@model ICollection<TrainInstance>
+@{
+    ViewData["Title"] = "Купить билет";
+}
+
+<h1>Купить билет</h1>
+<hr />
+<h2>@ViewBag.FromName — @ViewBag.ToName @ViewBag.StartDate.ToLongDateString()</h2>
+<div class="row">
+    @foreach (var train in Model)
+    {
+        var fromPoint = train.Route.Points.First(e => e.Station.Id == ViewBag.FromId);
+        var toPoint = train.Route.Points.First(e => e.Station.Id == ViewBag.ToId);
+        var fromTime = train.StartDate.Add(train.Route.StartTime).Add(fromPoint.FromStartTime);
+        var toTime = train.StartDate.Add(train.Route.StartTime).Add(toPoint.FromStartTime);
+        <div class="col-sm-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">@train.Number@(string.IsNullOrEmpty(train.Name) ? "" : " «" + train.Name + "»")</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@train.Route.Points.OrderBy(e => e.FromStartTime).First().Station.Name — @train.Route.Points.OrderByDescending(e => e.FromStartTime).First().Station.Name</h6>
+                    <p class="card-text">Отправление: @fromTime</p>
+                    <p class="card-text">Прибытие: @toTime</p>
+                    <a asp-action="FindCar"
+                       asp-route-fromPointId="@fromPoint.Id"
+                       asp-route-toPointId="@toPoint.Id"
+                       asp-route-trainId="@train.Id"
+                       class="btn btn-primary">Купить</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
