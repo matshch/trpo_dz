@@ -232,6 +232,7 @@ namespace InternationalRailwayTickets.Controllers
                 new TrainCar { Number = 7, Car = new Car { ServiceClass = "2С У0" }, FromPoint = trainRoute.First(), ToPoint = trainRoute.Last() },
                 new TrainCar { Number = 8, Car = new Car { ServiceClass = "2С Ж У0" }, FromPoint = trainRoute.First(), ToPoint = trainRoute.Last() },
                 new TrainCar { Number = 9, Car = new Car { ServiceClass = "2С У0" }, FromPoint = trainRoute.First(), ToPoint = trainRoute.Last() },
+                new TrainCar { Number = 4, Car = new Car { ServiceClass = "2С У0" }, FromPoint = trainRoute.First(), ToPoint = trainRoute.Last() }
             };
             GenerateSapsanFirstPlaces(trainCars[0].Car.Places);
             GenerateOneFloorPlaces(trainCars[1].Car.Places, 52);
@@ -243,6 +244,7 @@ namespace InternationalRailwayTickets.Controllers
             GenerateOneFloorPlaces(trainCars[6].Car.Places, 66);
             GenerateOneFloorPlaces(trainCars[7].Car.Places, 66);
             GenerateOneFloorPlaces(trainCars[8].Car.Places, 66);
+            GenerateOneFloorPlaces(trainCars[9].Car.Places, 66);
             return trainCars;
         }
 
