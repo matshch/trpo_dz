@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InternationalRailwayTickets.Views
+namespace InternationalRailwayTickets.Controllers
 {
     [Authorize]
     public class MyTicketsController : Controller
