@@ -50,5 +50,19 @@ namespace InternationalRailwayTickets.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var userId = _userManager.GetUserId(User);
+            var ticket = await _context.Tickets.Include(e => e.User).FirstAsync(e => e.Id == id);
+            if (ticket.User.Id != userId)
+            {
+                return Forbid();
+            }
+            _context.Tickets.Remove(ticket);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

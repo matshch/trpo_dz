@@ -65,8 +65,9 @@
                     }
                     else
                     {
-                        <text>Не оплачен</text>
-                        <a asp-action="Pay" asp-route-id="@ticket.Id" class="btn btn-danger">Оплатить</a>
+                        <text>Не оплачен</text><br />
+                        <a asp-action="Pay" asp-route-id="@ticket.Id" class="btn btn-primary">Оплатить</a>
+                        <a asp-action="Delete" asp-route-id="@ticket.Id" class="btn btn-danger">Удалить</a>
                     }
                 </td>
             </tr>
