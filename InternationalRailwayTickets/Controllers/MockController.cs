@@ -328,14 +328,14 @@ namespace InternationalRailwayTickets.Controllers
                 new TrainCar { Number = 8, Car = new Car { ServiceClass = "1Р У1" }, FromPoint = trainRoute.First(), ToPoint = trainRoute.Last() },
                 new TrainCar { Number = 9, Car = new Car { ServiceClass = "1Р У1" }, FromPoint = trainRoute.First(), ToPoint = trainRoute.Last() },
             };
-            GenerateOneFloorPlaces(trainCars[0].Car.Places, 48);
-            GenerateOneFloorPlaces(trainCars[1].Car.Places, 48);
-            GenerateOneFloorPlaces(trainCars[2].Car.Places, 48);
-            GenerateOneFloorPlaces(trainCars[3].Car.Places, 48);
-            GenerateOneFloorPlaces(trainCars[4].Car.Places, 38);
-            GenerateOneFloorPlaces(trainCars[5].Car.Places, 48);
-            GenerateOneFloorPlaces(trainCars[6].Car.Places, 48);
-            GenerateOneFloorPlaces(trainCars[7].Car.Places, 48);
+            GenerateOneFloorPlaces(trainCars[0].Car.Places, 48, 0);
+            GenerateOneFloorPlaces(trainCars[1].Car.Places, 48, 0);
+            GenerateOneFloorPlaces(trainCars[2].Car.Places, 48, 0);
+            GenerateOneFloorPlaces(trainCars[3].Car.Places, 48, 0);
+            GenerateOneFloorPlaces(trainCars[4].Car.Places, 38, 0);
+            GenerateOneFloorPlaces(trainCars[5].Car.Places, 48, 0);
+            GenerateOneFloorPlaces(trainCars[6].Car.Places, 48, 0);
+            GenerateOneFloorPlaces(trainCars[7].Car.Places, 48, 0);
             return trainCars;
         }
 
@@ -347,11 +347,11 @@ namespace InternationalRailwayTickets.Controllers
             }
         }
 
-        private void GenerateOneFloorPlaces(ICollection<Place> places, uint limit)
+        private void GenerateOneFloorPlaces(ICollection<Place> places, uint limit, uint level = 1)
         {
             for (var i = 1u; i <= limit; ++i)
             {
-                places.Add(new Place { Number = i, Level = 1, Floor = 1 });
+                places.Add(new Place { Number = i, Level = level, Floor = 1 });
             }
         }
 
@@ -363,7 +363,7 @@ namespace InternationalRailwayTickets.Controllers
                 {
                     continue;
                 }
-                places.Add(new Place { Number = i, Level = 1, Floor = 1 });
+                places.Add(new Place { Number = i, Level = 0, Floor = 1 });
             }
         }
     }
