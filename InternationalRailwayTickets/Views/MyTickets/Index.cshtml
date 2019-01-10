@@ -1,0 +1,76 @@
+﻿@model IEnumerable<IGrouping<string, InternationalRailwayTickets.Data.Ticket>>
+
+@{
+    ViewData["Title"] = "Список билетов";
+}
+
+<h1>Список билетов</h1>
+
+@foreach (var group in Model)
+{
+    var first = group.First();
+    var train = first.PlaceInstance.Car.TrainCar.Train;
+    <h2>@train.Number@(string.IsNullOrEmpty(train.Name) ? "" : " «" + train.Name + "»") @train.Route.Points.OrderBy(e => e.FromStartTime).First().Station.Name — @train.Route.Points.OrderByDescending(e => e.FromStartTime).First().Station.Name</h2>
+    var fromTime = train.StartDate.Add(train.Route.StartTime).Add(first.FromPoint.FromStartTime);
+    var toTime = train.StartDate.Add(train.Route.StartTime).Add(first.ToPoint.FromStartTime);
+    <p>Отправление: из @first.FromPoint.Station.Name @fromTime</p>
+    <p>Прибытие: в @first.ToPoint.Station.Name @toTime</p>
+    <p>Время в пути @(toTime - fromTime)</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Вагон
+                </th>
+                <th>
+                    Место
+                </th>
+                <th>
+                    ФИО
+                </th>
+                <th>
+                    Тип документа
+                </th>
+                <th>
+                    Номер документа
+                </th>
+                <th>
+                    Оплачен
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ticket in group)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.PlaceInstance.Car.TrainCar.Number) (@Html.DisplayFor(modelItem => ticket.PlaceInstance.Car.ServiceClass))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.PlaceInstance.Number) (@Html.DisplayFor(modelItem => ticket.PlaceInstance.Floor) этаж, @(ticket.PlaceInstance.Level == 0 ? "сидячее" : ticket.PlaceInstance.Level + " полка"))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.PassengerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.DocumentType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.DocumentNumber)
+                </td>
+                <td>
+                    @if (ticket.Paid)
+                    {
+                        <text>Оплачен</text>
+                    }
+                    else
+                    {
+                        <text>Не оплачен</text>
+                        <a asp-action="Pay" asp-route-id="@ticket.Id" class="btn btn-danger">Оплатить</a>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
