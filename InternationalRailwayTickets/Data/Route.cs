@@ -15,7 +15,7 @@ namespace InternationalRailwayTickets.Data
 
         public ICollection<RoutePoint> Points { get; } = new List<RoutePoint>();
 
-        public ICollection<TrainSchedule> TrainSchedules { get; set; } = new List<TrainSchedule>();
-        public ICollection<TrainInstance> TrainInstances { get; set; } = new List<TrainInstance>();
+        public ICollection<TrainSchedule> TrainSchedules { get; } = new List<TrainSchedule>();
+        public ICollection<TrainInstance> TrainInstances { get; } = new List<TrainInstance>();
     }
 }
