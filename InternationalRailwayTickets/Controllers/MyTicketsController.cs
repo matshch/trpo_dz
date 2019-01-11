@@ -33,7 +33,7 @@ namespace InternationalRailwayTickets.Controllers
                 .ToListAsync();
             return View(result
                 .GroupBy(e => e.PlaceInstance.Car.TrainCar.Train.Id.ToString() + e.FromPoint.Id.ToString() + e.ToPoint.Id.ToString())
-                .OrderBy(e => e.First().PlaceInstance.Car.TrainCar.Train.StartDate.Add(e.First().PlaceInstance.Car.TrainCar.Train.Route.StartTime).Add(e.First().FromPoint.FromStartTime))
+                .OrderBy(e => e.First().PlaceInstance.Car.TrainCar.Train.GetTimeAtPoint(e.First().FromPoint))
                 .ThenBy(e => e.First().ToPoint.FromStartTime));
         }
 
