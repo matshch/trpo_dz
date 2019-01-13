@@ -1,5 +1,6 @@
 ﻿using InternationalRailwayTickets.Data;
 using InternationalRailwayTickets.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace InternationalRailwayTickets.Controllers
 {
+    [Authorize]
     public class BuyTicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
