@@ -48,11 +48,8 @@ namespace InternationalRailwayTickets.Data
                 {
                     yield return date;
                 }
-                else
-                {
-                    included = included.Except(new[] { date });
-                    excluded = excluded.Except(new[] { date });
-                }
+                included = included.Where(e => e > date);
+                excluded = excluded.Where(e => e > date);
             }
         }
     }
